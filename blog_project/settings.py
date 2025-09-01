@@ -6,7 +6,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'replace-this-for-prod'
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']  # add your deploy host when deployed
+ALLOWED_HOSTS = ['*']  # add your deploy host when deployed
 
 INSTALLED_APPS = [
     'django.contrib.admin','django.contrib.auth','django.contrib.contenttypes',
