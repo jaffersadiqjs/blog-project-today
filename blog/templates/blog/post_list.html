@@ -1,0 +1,36 @@
+{% extends 'blog/base.html' %}
+{% block title %}All posts{% endblock %}
+{% block content %}
+<h2>Posts</h2>
+<div class="row">
+  {% for post in posts %}
+    <div class="col-md-6 mb-4">
+      <div class="card">
+        {% if post.image %}
+          <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}">
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h5>
+          <p class="card-text">{{ post.content|truncatechars:180 }}</p>
+          <p class="card-text"><small class="text-muted">By {{ post.author.username }} • {{ post.created_at|date:"M d, Y" }}</small></p>
+          <a href="{{ post.get_absolute_url }}" class="btn btn-primary btn-sm">Read More</a>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <p>No posts yet.</p>
+  {% endfor %}
+</div>
+
+<nav>
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+    {% endif %}
+    <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+    {% if page_obj.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+    {% endif %}
+  </ul>
+</nav>
+{% endblock %}
